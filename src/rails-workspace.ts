@@ -3,7 +3,8 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import * as glob from 'glob';
 import { RailsFile } from './rails-file';
-import { appendWithoutExt } from './path-utils';
+import { appendWithoutExt, filenamesMatchingThePatterns } from './path-utils';
+import { PatternConfig } from './types';
 
 /**
  * Some information about a Rails application at a given path.
@@ -24,6 +25,14 @@ export class RailsWorkspace {
   get appPath(): string {
     const appDir = vscode.workspace.getConfiguration('rails').get('appDir', 'app');
     return path.resolve(this.path, appDir);
+  }
+
+  get specFileSearchPatterns(): PatternConfig[] {
+    return vscode.workspace.getConfiguration('rails').get('specFileSearchPatterns', []);
+  }
+
+  get testFileSearchPatterns(): PatternConfig[] {
+    return vscode.workspace.getConfiguration('rails').get('testFileSearchPatterns', []);
   }
 
   get specPath(): string {
@@ -89,6 +98,14 @@ export class RailsWorkspace {
     });
 
     return this._models;
+  }
+
+  specFilenames(railsFile: RailsFile): string[] {
+    return filenamesMatchingThePatterns(this.specFileSearchPatterns, railsFile.filename);
+  }
+
+  testFilenames(railsFile: RailsFile): string[] {
+    return filenamesMatchingThePatterns(this.testFileSearchPatterns, railsFile.filename);
   }
 
   clearCache() {

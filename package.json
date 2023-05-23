@@ -2,7 +2,7 @@
   "name": "rails-fast-nav",
   "displayName": "Rails Fast Nav",
   "description": "Ruby on Rails Navigation",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "publisher": "jemmyw",
   "repository": {
     "type": "git",
@@ -39,6 +39,46 @@
           "type": "string",
           "default": "html.erb",
           "description": "Default extension when creating a view"
+        },
+        "rails.testFileSearchPatterns": {
+          "type": "array",
+          "description": "Search patterns for test files",
+          "default": [
+            { "replace": "app/(.*).rb$", "with": "test/$1_test.rb" },
+            { "replace": "app/(.*).rb$", "with": "test/$1/*_test.rb" }
+          ],
+          "items": {
+            "properties": {
+              "replace": {
+                "type": "string",
+                "description": "Regex to be applied to the original file's filename"
+              },
+              "with": {
+                "type": "string",
+                "description": "Regex that changes original file's filename into the related files' filename pattern"
+              }
+            }
+          }
+        },
+        "rails.specFileSearchPatterns": {
+          "type": "array",
+          "description": "Search patterns for spec files",
+          "default": [
+            { "replace": "app/(.*).rb$", "with": "spec/$1_spec.rb" },
+            { "replace": "app/(.*).rb$", "with": "spec/$1/*_spec.rb" }
+          ],
+          "items": {
+            "properties": {
+              "replace": {
+                "type": "string",
+                "description": "Regex to be applied to the original file's filename"
+              },
+              "with": {
+                "type": "string",
+                "description": "Regex that changes original file's filename into the related files' filename pattern"
+              }
+            }
+          }
         }
       }
     },

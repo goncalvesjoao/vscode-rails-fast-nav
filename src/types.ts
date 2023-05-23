@@ -8,6 +8,11 @@ export interface SwitchFile {
   checkedExists?: boolean;
 }
 
+export interface PatternConfig {
+  replace: string;
+  with: string;
+}
+
 export interface CheckedSwitchFile extends SwitchFile {
   checkedExists: true;
 }
